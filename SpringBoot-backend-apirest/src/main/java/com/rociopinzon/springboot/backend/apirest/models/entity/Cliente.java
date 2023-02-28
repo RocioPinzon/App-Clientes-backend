@@ -14,6 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -36,17 +37,20 @@ public class Cliente implements Serializable{
 	
 	@NotEmpty(message = "Este campo no puede estar vacio")
 	@Email(message = "No es una dirección válida")
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email;
 	
+	@NotNull(message = "La fecha no puede estar vacia")
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 
-	@PrePersist
+	
+	private String foto;
+	/*@PrePersist
 	public void prePersist() {
 		createAt = new Date();
-	}
+	}*/
 	
 	public Long getId() {
 		return id;
@@ -68,7 +72,7 @@ public class Cliente implements Serializable{
 		return apellido;
 	}
 
-	public void setApellidos(String apellido) {
+	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
 
@@ -89,6 +93,15 @@ public class Cliente implements Serializable{
 	}
 	
 	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+
 	/**
 	 * 
 	 */
